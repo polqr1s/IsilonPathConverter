@@ -28,12 +28,15 @@ def convert():
     final = convertedPaths(final, storageServer)
     convert()
 
+
 def next_window(window):
     window.destroy()
+
 
 def user_close(window):
     print('Window was closed')
     window.destroy()
+
 
 def storageIdentity():
     window = tk.Tk()
@@ -57,10 +60,13 @@ def storageIdentity():
     print ('Storage Server:' + storage)
     return storage
 
+
 def submit(window, storage_paths):
     global submittedPaths
     submittedPaths = storage_paths.get('1.0', 'end-1c')
     window.destroy()
+    return submittedPaths
+
 
 # https://stackoverflow.com/questions/60014280/tkinter-how-can-you-use-get-to-save-the-input-in-a-scrolled-text-widget-to-a
 def storagePaths():
@@ -68,6 +74,7 @@ def storagePaths():
     window.title('Enter Storage Paths')
     window.geometry('800x600')
     window.protocol('WM_DELETE_WINDOW', lambda : user_close(window))
+    window.attributes('-topmost', True)
 
     storage_label = tk.Label(window, text = 'Paste in the paths. The paths should have the server name first. ex; \\\\storage\\main\\subfolder')
     storage_paths = scrolledtext.ScrolledText(window, width=60, height=25)
@@ -77,9 +84,12 @@ def storagePaths():
     storage_label.place(relx=0.5, rely=0.1, anchor='center')
     storage_paths.place(relx=0.5, rely=0.5, anchor='center') 
 
+    window.focus_force()
+    storage_paths.focus_force()
     window.mainloop()
-    
+
     return submittedPaths
+
 
 def convertedPaths(final, storageServer):
     window = tk.Tk()
@@ -97,6 +107,7 @@ def convertedPaths(final, storageServer):
     converted_paths.configure(state ='disabled')
 
     window.mainloop()
+
 
 convert()
 
